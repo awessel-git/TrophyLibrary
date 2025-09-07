@@ -39,5 +39,6 @@ public class Trophy
         Year = year;
     }
 
-    public override string ToString() => $"Trophy {Id} won in {Year} at the {Competition} competition";
+    public override string ToString() =>
+        $"Trophy {Id} won in {Year} at the {Competition} competition";
 }
