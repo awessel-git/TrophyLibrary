@@ -2,24 +2,26 @@
 
 public class Trophy
 {
-    public int Id { get; set; } // There should be a better way of doing this
-
+    private static int _nextId;
     private string _competition;
+    private int _year;
+
+    public int Id { get; private init; }
+
     public string Competition
     {
         get { return _competition; }
         set
         {
-            if (value.Length < 3)
+            if (value?.Length < 3)
                 throw new ArgumentException("Competition has to be at least 3 characters");
             else if (value == null)
-                throw new NullReferenceException("Competition cannot be null");
+                throw new ArgumentNullException("Competition cannot be null");
             else
                 _competition = value;
         }
     }
 
-    private int _year;
     public int Year
     {
         get { return _year; }
@@ -32,9 +34,9 @@ public class Trophy
         }
     }
 
-    public Trophy(int id, string competition, int year)
+    public Trophy(string competition, int year)
     {
-        Id = id;
+        Id = ++_nextId;
         Competition = competition;
         Year = year;
     }
