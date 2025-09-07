@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36414.22 d17.14
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TrophyLibrary", "TrophyLibrary\TrophyLibrary.csproj", "{A9E37A49-197E-4BC9-94FD-82489C9125DA}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A9E37A49-197E-4BC9-94FD-82489C9125DA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A9E37A49-197E-4BC9-94FD-82489C9125DA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A9E37A49-197E-4BC9-94FD-82489C9125DA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A9E37A49-197E-4BC9-94FD-82489C9125DA}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {99CB4E06-3A99-4981-A3D1-065E1E201EB5}
+	EndGlobalSection
+EndGlobal
