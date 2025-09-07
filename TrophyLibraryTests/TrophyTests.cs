@@ -14,10 +14,7 @@ public class TrophyTests
     }
 
     [TestMethod]
-    public void Competition_LessThan3_Throws()
-    {
-        Assert.ThrowsException<ArgumentException>(() => _trophy.Competition = "Fo");
-    }
+    public void Competition_LessThan3_Throws() => Assert.ThrowsException<ArgumentException>(() => _trophy.Competition = "Fo");
 
     [TestMethod]
     public void Competition_GreaterThanOrEqual3_Updates()
@@ -29,8 +26,26 @@ public class TrophyTests
     }
 
     [TestMethod]
-    public void Competition_WhenNull_Throws()
+    public void Competition_WhenNull_Throws() => Assert.ThrowsException<ArgumentNullException>(() => _trophy.Competition = null);
+
+    [TestMethod]
+    public void Year_OutOfRange_Throws()
     {
-        Assert.ThrowsException<ArgumentNullException>(() => _trophy.Competition = null);
+        Assert.ThrowsException<ArgumentOutOfRangeException>(() => _trophy.Year = 1969);
+        Assert.ThrowsException<ArgumentOutOfRangeException>(() => _trophy.Year = 2026);
     }
+
+    [TestMethod]
+    public void Year_WithinRange_Updates()
+    {
+        _trophy.Year = 1970;
+        Assert.AreEqual(1970, _trophy.Year);
+        _trophy.Year = 2025;
+        Assert.AreEqual(2025, _trophy.Year);
+        _trophy.Year = 2000;
+        Assert.AreEqual(2000, _trophy.Year);
+    }
+
+    [TestMethod]
+    public void ToString_ReturnsExpectedResult() => Assert.AreEqual($"Trophy {_trophy.Id} won in {_trophy.Year} at the {_trophy.Competition} competition", _trophy.ToString());
 }
