@@ -39,6 +39,13 @@ public class Trophy
         Year = year;
     }
 
+    public Trophy(Trophy trophy) // Copy constructor
+    {
+        Id = ++_nextId;
+        Competition = trophy.Competition;
+        Year = trophy.Year;
+    }
+
     public override string ToString() =>
         $"Trophy {Id} won in {Year} at the {Competition} competition";
 }
