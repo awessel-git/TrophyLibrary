@@ -90,6 +90,16 @@ public class TrophiesRepository
         return trophy;
     }
 
+    /// <summary>
+    /// Removes a trophy with the given id.
+    /// </summary>
+    /// <param name="id">The id of the trophy to remove. Must be greater than 0.</param>
+    /// <returns>
+    /// The removed trophy if found, or <c>null</c> if no trophy with that id exists.
+    /// </returns>
+    /// <exception cref="ArgumentOutOfRangeException">
+    /// Thrown if <paramref name="id"/> is less than 1.
+    /// </exception>
     public Trophy? Remove(int id)
     {
         if (id < 1)
