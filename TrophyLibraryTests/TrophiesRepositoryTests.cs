@@ -77,5 +77,31 @@ public class TrophiesRepositoryTests
         Assert.AreEqual(1996, sortedByYear[4].Year);
     }
 
+    [TestMethod]
+    public void GetById_Throws_WhenIdIsLessThanOne()
+    {
+        Assert.ThrowsException<ArgumentOutOfRangeException>(() => _repository.GetById(0));
+        Assert.ThrowsException<ArgumentOutOfRangeException>(() => _repository.GetById(-1));
+    }
 
+    [TestMethod]
+    public void GetById_ReturnsNull_WhenTrophyDoesNotExist()
+    {
+        var trophy1 = _repository.GetById(int.MaxValue);
+        var trophy2 = _repository.GetById(_repository.Get().Last().Id + 1); // Id beyond known range
+
+        Assert.IsNull(trophy1);
+        Assert.IsNull(trophy2);
+    }
+
+    [TestMethod]
+    public void GetById_ReturnsTrophy_WhenIdExists()
+    {
+        int firstTrophyId = _repository.Get().First().Id;
+
+        var trophy = _repository.GetById(firstTrophyId);
+
+        Assert.IsNotNull(trophy);
+        Assert.AreEqual(firstTrophyId, trophy.Id);
+    }
 }

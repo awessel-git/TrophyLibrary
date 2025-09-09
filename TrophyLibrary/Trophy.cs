@@ -41,7 +41,7 @@ public class Trophy
 
     public Trophy(Trophy trophy) // Copy constructor
     {
-        Id = ++_nextId;
+        Id = trophy.Id;
         Competition = trophy.Competition;
         Year = trophy.Year;
     }

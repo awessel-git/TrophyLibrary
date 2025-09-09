@@ -54,4 +54,18 @@ public class TrophiesRepository
 
         return [.. trophies.Select(t => new Trophy(t))]; // Use copy constructor
     }
+
+    /// <summary>
+    /// Finds a trophy by its Id.
+    /// </summary>
+    /// <param name="id">The Id to look for. Must be greater than 0.</param>
+    /// <returns>The trophy if found, or <c>null</c> if not.</returns>
+    /// <exception cref="ArgumentOutOfRangeException">Thrown if <paramref name="id"/> is less than 1.</exception>
+    public Trophy? GetById(int id)
+    {
+        if (id < 1)
+            throw new ArgumentOutOfRangeException(nameof(id), "Id has to be bigger than 0");
+
+        return _trophies.FirstOrDefault(trophy => trophy.Id == id);
+    }
 }
