@@ -68,4 +68,25 @@ public class TrophiesRepository
 
         return _trophies.FirstOrDefault(trophy => trophy.Id == id);
     }
+
+    /// <summary>
+    /// Adds a trophy to the repository.
+    /// </summary>
+    /// <param name="trophy">The trophy to add. Cannot be null.</param>
+    /// <returns>The added <see cref="Trophy"/>.</returns>
+    /// <exception cref="ArgumentNullException">Thrown if <paramref name="trophy"/> is null.</exception>
+    /// <exception cref="InvalidOperationException">
+    /// Thrown if a trophy with the same Id already exists in the repository.
+    /// </exception>
+    public Trophy Add(Trophy trophy)
+    {
+        ArgumentNullException.ThrowIfNull(trophy);
+
+        // Avoid duplicates
+        if (_trophies.Any(t => t.Id == trophy.Id))
+            throw new InvalidOperationException($"A trophy with Id {trophy.Id} already exists");
+
+        _trophies.Add(trophy);
+        return trophy;
+    }
 }

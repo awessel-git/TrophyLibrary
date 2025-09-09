@@ -104,4 +104,29 @@ public class TrophiesRepositoryTests
         Assert.IsNotNull(trophy);
         Assert.AreEqual(firstTrophyId, trophy.Id);
     }
+
+    [TestMethod]
+    public void Add_ReturnsSameTrophy_WhenNewTrophyIsAdded()
+    {
+        var newTrophy = new Trophy("Cycling", 2022);
+
+        var addedTrophy = _repository.Add(newTrophy);
+
+        Assert.AreEqual(newTrophy.Id, addedTrophy.Id);
+    }
+
+    [TestMethod]
+    public void Add_ThrowsArgumentNullException_WhenTrophyIsNull()
+    {
+        Assert.ThrowsException<ArgumentNullException>(() => _repository.Add(null));
+    }
+
+    [TestMethod]
+    public void Add_ThrowsInvalidOperationException_WhenTrophyWithSameIdAlreadyExists()
+    {
+        var newTrophy = new Trophy("Fencing", 2009);
+        _repository.Add(newTrophy);
+
+        Assert.ThrowsException<InvalidOperationException>(() => _repository.Add(newTrophy));
+    }
 }
