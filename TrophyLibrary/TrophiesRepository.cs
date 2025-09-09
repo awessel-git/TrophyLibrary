@@ -63,8 +63,7 @@ public class TrophiesRepository
     /// <exception cref="ArgumentOutOfRangeException">Thrown if <paramref name="id"/> is less than 1.</exception>
     public Trophy? GetById(int id)
     {
-        if (id < 1)
-            throw new ArgumentOutOfRangeException(nameof(id), "Id has to be bigger than 0");
+        CheckId(id);
 
         return _trophies.FirstOrDefault(trophy => trophy.Id == id);
     }
@@ -102,8 +101,7 @@ public class TrophiesRepository
     /// </exception>
     public Trophy? Remove(int id)
     {
-        if (id < 1)
-            throw new ArgumentOutOfRangeException(nameof(id), "Id has to be bigger than 0");
+        CheckId(id);
 
         var query = _trophies.FirstOrDefault(trophy => trophy.Id == id);
 
@@ -111,5 +109,40 @@ public class TrophiesRepository
             _trophies.Remove(query);
 
         return query;
+    }
+
+    /// <summary>
+    /// Updates the trophy with the given id using the provided values.
+    /// </summary>
+    /// <param name="id">The id of the trophy to update. Must be greater than 0.</param>
+    /// <param name="values">The new values for competition and year. Cannot be null.</param>
+    /// <returns>
+    /// The updated trophy if found, or <c>null</c> if no trophy with that id exists.
+    /// </returns>
+    /// <exception cref="ArgumentOutOfRangeException">
+    /// Thrown if <paramref name="id"/> is less than 1.
+    /// </exception>
+    /// <exception cref="ArgumentNullException">
+    /// Thrown if <paramref name="values"/> is null.
+    /// </exception>
+    public Trophy? Update(int id, Trophy values)
+    {
+        CheckId(id);
+        ArgumentNullException.ThrowIfNull(values);
+
+        Trophy? trophyToUpdate = GetById(id);
+        if (trophyToUpdate is not null)
+        {
+            trophyToUpdate.Competition = values.Competition;
+            trophyToUpdate.Year = values.Year;
+        }
+
+        return trophyToUpdate;
+    }
+
+    private static void CheckId(int id)
+    {
+        if (id < 1)
+            throw new ArgumentOutOfRangeException(nameof(id), "Id has to be bigger than 0");
     }
 }

@@ -154,4 +154,38 @@ public class TrophiesRepositoryTests
         Assert.ThrowsException<ArgumentOutOfRangeException>(() => _repository.Remove(0));
         Assert.ThrowsException<ArgumentOutOfRangeException>(() => _repository.Remove(-1));
     }
+
+    [TestMethod]
+    public void Update_ThrowsArgumentNullException_WhenValuesIsNull()
+    {
+        Trophy trophyToUpdate = _repository.Get().First();
+        Assert.ThrowsException<ArgumentNullException>(() => _repository.Update(trophyToUpdate.Id, null));
+    }
+
+    [TestMethod]
+    public void Update_UpdatesTrophy_WhenIdExists()
+    {
+        Trophy trophyBeforeUpdate = _repository.Get().First();
+        Trophy? trophyValues = _repository.Update(trophyBeforeUpdate.Id, new("MMA", 2009));
+        Trophy trophyAfterUpdate = _repository.Get().First();
+        Assert.IsNotNull(trophyValues);
+        Assert.AreEqual("MMA", trophyAfterUpdate.Competition);
+        Assert.AreEqual("MMA", trophyValues.Competition);
+        Assert.AreEqual(2009, trophyAfterUpdate.Year);
+        Assert.AreEqual(2009, trophyValues.Year);
+    }
+
+    [TestMethod]
+    public void Update_ReturnsNull_WhenIdDoesNotExist()
+    {
+        Trophy? noneExistingUpdatedTrophy = _repository.Update(int.MaxValue, new Trophy("Horse Riding", 2016));
+        Assert.IsNull(noneExistingUpdatedTrophy);
+    }
+
+    [TestMethod]
+    public void Update_ThrowsArgumentOutOfRangeException_WhenIdIsLessThanOne()
+    {
+        Assert.ThrowsException<ArgumentOutOfRangeException>(() => _repository.Update(0, new("Football", 2005)));
+        Assert.ThrowsException<ArgumentOutOfRangeException>(() => _repository.Update(-1, new("UFC", 1999)));
+    }
 }
