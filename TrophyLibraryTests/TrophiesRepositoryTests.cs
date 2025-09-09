@@ -129,4 +129,29 @@ public class TrophiesRepositoryTests
 
         Assert.ThrowsException<InvalidOperationException>(() => _repository.Add(newTrophy));
     }
+
+    [TestMethod]
+    public void Remove_ExistingId_RemovesAndReturnsTrophy()
+    {
+        Trophy firstTrophy = _repository.Get().First();
+        Trophy? removedTrophy = _repository.Remove(firstTrophy.Id);
+        Assert.IsNotNull(removedTrophy);
+        Assert.AreEqual(removedTrophy.Id, firstTrophy.Id);
+        Assert.AreEqual(4, _repository.Get().Count);
+        Assert.AreEqual("Chess", _repository.Get().First().Competition); // Chess should now be the first
+    }
+
+    [TestMethod]
+    public void Remove_NonExistentId_ReturnsNull()
+    {
+        var nonExistentTrophy = _repository.Remove(int.MaxValue);
+        Assert.IsNull(nonExistentTrophy);
+    }
+
+    [TestMethod]
+    public void Remove_InvalidId_ThrowsArgumentOutOfRange()
+    {
+        Assert.ThrowsException<ArgumentOutOfRangeException>(() => _repository.Remove(0));
+        Assert.ThrowsException<ArgumentOutOfRangeException>(() => _repository.Remove(-1));
+    }
 }

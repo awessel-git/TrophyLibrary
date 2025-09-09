@@ -89,4 +89,17 @@ public class TrophiesRepository
         _trophies.Add(trophy);
         return trophy;
     }
+
+    public Trophy? Remove(int id)
+    {
+        if (id < 1)
+            throw new ArgumentOutOfRangeException(nameof(id), "Id has to be bigger than 0");
+
+        var query = _trophies.FirstOrDefault(trophy => trophy.Id == id);
+
+        if (query is not null)
+            _trophies.Remove(query);
+
+        return query;
+    }
 }
