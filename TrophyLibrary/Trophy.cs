@@ -32,6 +32,11 @@ public class Trophy
         }
     }
 
+    public Trophy()
+    {
+        Id = ++_nextId;
+    }
+
     public Trophy(string competition, int year)
     {
         Id = ++_nextId;
